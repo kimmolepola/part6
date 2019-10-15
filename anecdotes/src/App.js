@@ -1,26 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import AnecdoteForm from './components/anecdoteForm';
+import AnecdoteList from './components/anecdoteList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+/* eslint-disable react/prop-types */
+const App = ({ store }) => (
+  <div>
+    <h2>Anecdotes</h2>
+    <AnecdoteList store={store} />
+    <AnecdoteForm store={store} />
+  </div>
+);
+/* eslint-enable react/prop-types */
 
 export default App;

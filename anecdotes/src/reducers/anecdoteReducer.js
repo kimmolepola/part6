@@ -1,10 +1,10 @@
 
-const addAnecdote = (content) => ({
+export const addAnecdote = (content) => ({
   type: 'ADD ANECDOTE',
   data: { content },
 });
 
-const vote = (id) => ({
+export const vote = (id) => ({
   type: 'VOTE',
   data: { id },
 });
@@ -54,4 +54,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export { reducer, addAnecdote, vote };
+export default reducer;

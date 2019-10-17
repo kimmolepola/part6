@@ -1,15 +1,17 @@
 import React from 'react';
 import AnecdoteForm from './components/anecdoteForm';
 import AnecdoteList from './components/anecdoteList';
-import Notification from './components/Notification';
+import Notification from './components/notification';
+import Filter from './components/filter';
 
 /* eslint-disable react/prop-types */
-const App = ({ store }) => (
+const App = () => (
   <div>
-    <Notification store={store} />
+    <Notification />
     <h2>Anecdotes</h2>
-    <AnecdoteList store={store} />
-    <AnecdoteForm store={store} />
+    <Filter />
+    <AnecdoteList />
+    <AnecdoteForm />
   </div>
 );
 /* eslint-enable react/prop-types */

@@ -1,15 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { addAnecdote } from '../reducers/anecdoteReducer';
 import { setNotification, removeNotification } from '../reducers/notificationReducer';
 
+
 /* eslint-disable react/prop-types */
-const anecdoteForm = ({ store }) => {
+const AnecdoteForm = (props) => {
   const newAnecdote = (event) => {
     event.preventDefault();
-    store.dispatch(addAnecdote(event.target.anecdote.value));
-    store.dispatch(setNotification(`you created ${event.target.anecdote.value}`));
+    props.addAnecdote(event.target.anecdote.value);
+    props.setNotification(`you created ${event.target.anecdote.value}`);
     setTimeout(() => {
-      store.dispatch(removeNotification());
+      props.removeNotification();
     }, 5000);
   };
 
@@ -24,4 +26,4 @@ const anecdoteForm = ({ store }) => {
   );
 };
 
-export default anecdoteForm;
+export default connect(null, { addAnecdote, setNotification, removeNotification })(AnecdoteForm);

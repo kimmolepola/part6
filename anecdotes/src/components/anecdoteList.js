@@ -1,20 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { vote } from '../reducers/anecdoteReducer';
 import { setNotification, removeNotification } from '../reducers/notificationReducer';
 
 /* eslint-disable react/prop-types */
-const anecdoteList = ({ store }) => {
-  const { anecdotes } = store.getState();
+const AnecdoteList = (props) => {
+  const { anecdotes } = props;
   const newVote = (id) => {
-    store.dispatch(vote(id));
-    store.dispatch(setNotification(`you voted ${anecdotes.find((x) => x.id === id).content}`));
+    props.vote(id);
+    props.setNotification(`you voted ${anecdotes.find((x) => x.id === id).content}`);
     setTimeout(() => {
-      store.dispatch(removeNotification());
+      props.removeNotification();
     }, 5000);
   };
   return (
     <div>
-      {anecdotes.map((anecdote) => (
+      {anecdotes.filter((x) => x.content.includes(props.filter)).map((anecdote) => (
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
@@ -29,4 +30,19 @@ const anecdoteList = ({ store }) => {
   );
 };
 
-export default anecdoteList;
+const mapDispatchToProps = {
+  vote,
+  setNotification,
+  removeNotification,
+};
+
+const mapStateToProps = (state) => {
+  // sometimes it is useful to console log from mapStateToProps
+  console.log(state);
+  return {
+    anecdotes: state.anecdotes,
+    filter: state.filter,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnecdoteList);

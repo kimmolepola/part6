@@ -5,17 +5,17 @@ import { setNotification, removeNotification } from '../reducers/notificationRed
 
 /* eslint-disable react/prop-types */
 const AnecdoteList = (props) => {
-  const { anecdotes } = props;
+  const { visibleAnecdotes } = props;
   const newVote = (id) => {
     props.vote(id);
-    props.setNotification(`you voted ${anecdotes.find((x) => x.id === id).content}`);
+    props.setNotification(`you voted ${visibleAnecdotes.find((x) => x.id === id).content}`);
     setTimeout(() => {
       props.removeNotification();
     }, 5000);
   };
   return (
     <div>
-      {anecdotes.filter((x) => x.content.includes(props.filter)).map((anecdote) => (
+      {visibleAnecdotes.map((anecdote) => (
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
@@ -30,6 +30,8 @@ const AnecdoteList = (props) => {
   );
 };
 
+const anecdotesToShow = (state) => state.anecdotes.filter((x) => x.content.includes(state.filter));
+
 const mapDispatchToProps = {
   vote,
   setNotification,
@@ -40,7 +42,7 @@ const mapStateToProps = (state) => {
   // sometimes it is useful to console log from mapStateToProps
   console.log(state);
   return {
-    anecdotes: state.anecdotes,
+    visibleAnecdotes: anecdotesToShow(state),
     filter: state.filter,
   };
 };

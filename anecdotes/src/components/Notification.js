@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const Notification = (props) => {
+const Notification = ({ notification }) => {
   const style = {
     border: 'solid',
     padding: 10,
@@ -9,7 +10,7 @@ const Notification = (props) => {
   };
   return (
     <div style={style}>
-      {props.notification}
+      {notification}
     </div>
   );
 };
@@ -19,3 +20,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Notification);
+Notification.propTypes = {
+  notification: PropTypes.string.isRequired,
+};

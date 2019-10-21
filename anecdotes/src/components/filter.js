@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { setFilter } from '../reducers/filterReducer';
 
 const Filter = (props) => {
   const handleChange = (event) => {
-    // input-field value is in variable event.target.value
     props.setFilter(event.target.value);
   };
   const style = {
@@ -19,3 +19,7 @@ const Filter = (props) => {
 };
 
 export default connect(null, { setFilter })(Filter);
+
+Filter.propTypes = {
+  setFilter: PropTypes.func.isRequired,
+};

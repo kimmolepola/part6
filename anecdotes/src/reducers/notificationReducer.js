@@ -1,13 +1,16 @@
-const initialMessage = 'Hello store';
+export const setNotification = (text, time) => async (dispatch) => {
+  dispatch({
+    type: 'SET_NOTIFICATION',
+    text,
+  });
+  setTimeout(() => {
+    dispatch({
+      type: 'REMOVE_NOTIFICATION',
+    });
+  }, time * 1000);
+};
 
-export const removeNotification = () => ({ type: 'REMOVE_NOTIFICATION' });
-
-export const setNotification = (text) => ({
-  type: 'SET_NOTIFICATION',
-  text,
-});
-
-const reducer = (state = initialMessage, action) => {
+const reducer = (state = '', action) => {
   switch (action.type) {
     case 'SET_NOTIFICATION':
       return action.text;

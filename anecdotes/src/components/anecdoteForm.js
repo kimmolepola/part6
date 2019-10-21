@@ -1,18 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { addAnecdote } from '../reducers/anecdoteReducer';
-import { setNotification, removeNotification } from '../reducers/notificationReducer';
+import { setNotification } from '../reducers/notificationReducer';
 
-
-/* eslint-disable react/prop-types */
 const AnecdoteForm = (props) => {
-  const newAnecdote = (event) => {
+  const newAnecdote = async (event) => {
     event.preventDefault();
-    props.addAnecdote(event.target.anecdote.value);
-    props.setNotification(`you created ${event.target.anecdote.value}`);
-    setTimeout(() => {
-      props.removeNotification();
-    }, 5000);
+    const content = event.target.anecdote.value;
+    event.target.anecdote.value = ''; // eslint-disable-line no-param-reassign
+    props.addAnecdote(content);
+    props.setNotification(`you created ${content}`, 5);
   };
 
   return (
@@ -26,4 +24,9 @@ const AnecdoteForm = (props) => {
   );
 };
 
-export default connect(null, { addAnecdote, setNotification, removeNotification })(AnecdoteForm);
+export default connect(null, { addAnecdote, setNotification })(AnecdoteForm);
+
+AnecdoteForm.propTypes = {
+  addAnecdote: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
+};
